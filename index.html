@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrasilShop</title>
+
+<!-- FAVICON (icone da aba) -->
+<link rel="icon" href="logo.png">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#070712;
+    color:white;
+}
+
+/* NAVBAR */
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 60px;
+    background:#0c0c18;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:20px;
+}
+
+.logo img{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+}
+
+.verify-badge{
+    width:20px;
+    height:20px;
+    background:#3b82f6;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.verify-badge svg{
+    width:12px;
+    height:12px;
+    fill:white;
+}
+
+.search{
+    width:35%;
+}
+
+.search input{
+    width:100%;
+    padding:12px 20px;
+    border-radius:25px;
+    border:none;
+    background:#141426;
+    color:white;
+    outline:none;
+}
+
+.nav-buttons{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.btn{
+    padding:10px 18px;
+    border-radius:14px;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    text-decoration:none;
+}
+
+.btn-dark{
+    background:#141426;
+    color:white;
+}
+
+.btn-dark:hover{
+    background:#1f1f35;
+}
+
+.btn-purple{
+    background:linear-gradient(45deg,#7b2ff7,#9b00ff);
+    color:white;
+}
+
+/* PERFIL SEM FOTO */
+
+.profile{
+    background:#141426;
+    padding:10px 18px;
+    border-radius:30px;
+    font-weight:bold;
+}
+
+/* HERO */
+
+.hero{
+    padding:120px 80px;
+}
+
+.hero h1{
+    font-size:52px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:18px;
+    color:#b0b0b0;
+}
+
+/* LOGIN MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.75);
+    backdrop-filter:blur(5px);
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+}
+
+.login-card{
+    background:#0f0f1f;
+    padding:40px;
+    border-radius:18px;
+    width:380px;
+}
+
+.login-card h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.login-card input{
+    width:100%;
+    padding:12px;
+    margin-bottom:20px;
+    border-radius:12px;
+    border:1px solid #1f1f35;
+    background:#111122;
+    color:white;
+}
+
+.login-main-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(90deg,#7b2ff7,#9b00ff);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+
+    <div class="logo">
+        <!-- SUA LOGO PERSONALIZADA -->
+        <img src="logo.png">
+        <strong>BrasilShop</strong>
+        <div class="verify-badge">
+            <svg viewBox="0 0 24 24">
+                <path d="M9 16.2l-3.5-3.5-1.4 1.4L9 19 20.3 7.7l-1.4-1.4z"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="search">
+        <input type="text" placeholder="Buscar produtos...">
+    </div>
+
+    <div class="nav-buttons" id="navButtons">
+
+        <button id="loginBtn" class="btn btn-dark">
+            <i class="fa-solid fa-user"></i>
+            Minha Conta
+        </button>
+
+        <button class="btn btn-purple">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Meu Carrinho
+        </button>
+
+        <a href="https://discord.gg/SEULINK" target="_blank" class="btn btn-dark">
+            <i class="fa-brands fa-discord"></i>
+            Comunidade
+        </a>
+
+    </div>
+
+</div>
+
+<section class="hero">
+    <h1>Bem-vindo à BrasilShop</h1>
+    <p>Sua loja digital rápida, segura e 100% confiável.</p>
+</section>
+
+<div id="loginModal" class="modal">
+  <div class="login-card">
+    <h2>Entrar na sua conta</h2>
+    <input type="text" id="nomeInput" placeholder="Nome">
+    <input type="password" id="senhaInput" placeholder="Senha">
+    <button class="login-main-btn" onclick="login()">Entrar</button>
+  </div>
+</div>
+
+<script>
+const loginBtn = document.getElementById("loginBtn");
+const modal = document.getElementById("loginModal");
+
+loginBtn.onclick = () => {
+    modal.style.display = "flex";
+}
+
+window.onclick = (e) => {
+    if(e.target == modal){
+        modal.style.display = "none";
+    }
+}
+
+function login(){
+    const nome = document.getElementById("nomeInput").value;
+    const senha = document.getElementById("senhaInput").value;
+
+    if(nome === "" || senha === ""){
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    localStorage.setItem("usuario", nome);
+    mostrarPerfil(nome);
+    modal.style.display = "none";
+}
+
+function mostrarPerfil(nome){
+    document.getElementById("loginBtn").outerHTML = `
+        <div class="profile">
+            ${nome}
+        </div>
+    `;
+}
+
+window.onload = () => {
+    const usuario = localStorage.getItem("usuario");
+    if(usuario){
+        mostrarPerfil(usuario);
+    }
+}
+</script>
+
+</body>
+</html>
